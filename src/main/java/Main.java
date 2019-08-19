@@ -6,6 +6,6 @@ public class Main {
         board.init();
         System.out.println(board);
 
-        board.move("A2", "A3");
+        board.move("A7", "a4");
     }
 }

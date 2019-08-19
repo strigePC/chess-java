@@ -2,10 +2,7 @@ package main.java;
 
 import main.java.figures.*;
 
-import java.util.List;
-
 public class Board {
-    private List<AbstractFigure> figures;
     private AbstractFigure[][] board;
 
     Board() {
@@ -37,31 +34,41 @@ public class Board {
     }
 
     public void move(String src, String dst) {
-        if (src.length() != 2 || dst.length() != 2) {
-            System.err.println("Inputs should contain 2 characters (Row and Column, e.g. C5)");
-            return;
+        if (isPositionValid(src) && isPositionValid(dst)) {
+            String srcLower = src.toLowerCase();
+            String dstLower = dst.toLowerCase();
+
+            int srcRow = srcLower.charAt(1) - 49;
+            int srcCol = srcLower.charAt(0) - 97;
+            int dstRow = dstLower.charAt(1) - 49;
+            int dstCol = dstLower.charAt(0) - 97;
+
+            if (this.board[srcRow][srcCol].canMove(this.board, new Position(dstRow, dstCol))) {
+                System.out.println(srcLower + " (" + this.board[srcRow][srcCol] + ") to " + dstLower);
+            }
         }
 
-        int srcCol = src.toUpperCase().charAt(0);
-        int srcRow = src.toUpperCase().charAt(1);
-        int dstCol = src.toUpperCase().charAt(0);
-        int dstRow = src.toUpperCase().charAt(1);
+    }
 
-        if (49 > srcRow || srcRow > 56 || 49 > dstRow || dstRow > 56) {
-            System.err.println("Row should be a number in range 1-8");
-            return;
-        }
-        if (65 > srcCol || srcCol > 72 || 65 > dstCol || dstCol > 72) {
-            System.err.println("Column should be a letter in range A-H");
-            return;
+    private boolean isPositionValid(String position) {
+        if (position.length() != 2) {
+            System.out.println("Inputs should contain 2 characters (Row and Column, e.g. C5)");
+            return false;
         }
 
-        srcRow -= 49;
-        srcCol -= 65;
-        dstRow -= 49;
-        dstCol -= 65;
+        int col = position.toUpperCase().charAt(0);
+        int row = position.toUpperCase().charAt(1);
 
-        System.out.println(src + " (" + this.board[srcRow][srcCol] + ") to " + dst);
+        if (49 > row || row > 56) {
+            System.out.println("Row should be a number in range 1-8");
+            return false;
+        }
+        if (65 > col || col > 72) {
+            System.out.println("Column should be a letter in range A-H");
+            return false;
+        }
+
+        return true;
     }
 
     public AbstractFigure[][] getBoard() {

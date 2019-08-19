@@ -1,24 +1,34 @@
 package main.java.figures;
 
+import main.java.Position;
+
 public abstract class AbstractFigure {
     private char color;
-    private int row;
-    private int col;
+    private Position position;
 
     AbstractFigure() {
     }
 
+    public abstract boolean canMove(AbstractFigure[][] board, Position position);
+
     public int getRow() {
-        return row;
+        return this.position.getRow();
+    }
+
+    public int getCol() {
+        return this.position.getCol();
     }
 
     public void setRow(int row) {
-        this.row = row;
+        this.position.setRow(row);
     }
 
     public void setPosition(int row, int col) {
-        this.row = row;
-        this.col = col;
+        this.position = new Position(row, col);
+    }
+
+    public Position getPosition() {
+        return this.position;
     }
 
     public void setColor(char color) {
@@ -27,5 +37,17 @@ public abstract class AbstractFigure {
 
     public char getColor() {
         return color;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public boolean isWhite() {
+        return getColor() == 'w';
+    }
+
+    public boolean isBlack() {
+        return getColor() == 'b';
     }
 }
