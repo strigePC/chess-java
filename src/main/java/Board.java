@@ -4,9 +4,11 @@ import main.java.figures.*;
 
 public class Board {
     private AbstractFigure[][] board;
+    private boolean isOver;
 
     Board() {
         this.board = new AbstractFigure[8][8];
+        this.isOver = false;
     }
 
     public void init() {
@@ -33,7 +35,7 @@ public class Board {
         this.board[7][7] = new Rook('b', 7, 7);
     }
 
-    public void move(String src, String dst) {
+    public boolean move(String src, String dst, char color) {
         if (isPositionValid(src) && isPositionValid(dst)) {
             String srcLower = src.toLowerCase();
             String dstLower = dst.toLowerCase();
@@ -45,17 +47,27 @@ public class Board {
 
             if (this.board[srcRow][srcCol] == null) {
                 System.out.println("There is no figure at " + srcLower);
-                return;
+                return false;
+            }
+
+            if (this.board[srcRow][srcCol].getColor() != color) {
+                if (color == 'b') System.out.println("It's black's turn");
+                else System.out.println("It's white's turn");
+                return false;
             }
 
             if (this.board[srcRow][srcCol].canMove(this.board, new Position(dstRow, dstCol))) {
+                if (this.board[dstRow][dstCol] instanceof King) this.isOver = true;
+
                 this.board[dstRow][dstCol] = this.board[srcRow][srcCol];
                 System.out.println(srcLower + " (" + this.board[srcRow][srcCol] + ") to " + dstLower);
                 this.board[srcRow][srcCol] = null;
                 this.board[dstRow][dstCol].setPosition(dstRow, dstCol);
+                return true;
             }
         }
 
+        return false;
     }
 
     private boolean isPositionValid(String position) {
@@ -106,5 +118,13 @@ public class Board {
         result.append("    A    B    C    D    E    F    G    H\n");
 
         return result.toString();
+    }
+
+    public boolean isOver() {
+        return isOver;
+    }
+
+    public void setOver(boolean over) {
+        isOver = over;
     }
 }
