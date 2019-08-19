@@ -18,8 +18,8 @@ public class Board {
             this.board[6][i] = new Pawn('b', 6, i);
         }
         this.board[0][0] = new Rook('w', 0, 0);
-        this.board[0][1] = new Knight('w',0, 1);
-        this.board[0][2] = new Bishop('w',0, 2);
+        this.board[0][1] = new Knight('w', 0, 1);
+        this.board[0][2] = new Bishop('w', 0, 2);
         this.board[0][3] = new Queen('w', 0, 3);
         this.board[0][4] = new King('w', 0, 4);
         this.board[0][5] = new Bishop('w', 0, 5);
@@ -37,7 +37,31 @@ public class Board {
     }
 
     public void move(String src, String dst) {
-        int srcRow = src.toUpperCase().charAt(0);
+        if (src.length() != 2 || dst.length() != 2) {
+            System.err.println("Inputs should contain 2 characters (Row and Column, e.g. C5)");
+            return;
+        }
+
+        int srcCol = src.toUpperCase().charAt(0);
+        int srcRow = src.toUpperCase().charAt(1);
+        int dstCol = src.toUpperCase().charAt(0);
+        int dstRow = src.toUpperCase().charAt(1);
+
+        if (49 > srcRow || srcRow > 56 || 49 > dstRow || dstRow > 56) {
+            System.err.println("Row should be a number in range 1-8");
+            return;
+        }
+        if (65 > srcCol || srcCol > 72 || 65 > dstCol || dstCol > 72) {
+            System.err.println("Column should be a letter in range A-H");
+            return;
+        }
+
+        srcRow -= 49;
+        srcCol -= 65;
+        dstRow -= 49;
+        dstCol -= 65;
+
+        System.out.println(src + " (" + this.board[srcRow][srcCol] + ") to " + dst);
     }
 
     public AbstractFigure[][] getBoard() {

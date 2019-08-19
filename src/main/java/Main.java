@@ -5,5 +5,7 @@ public class Main {
         Board board = new Board();
         board.init();
         System.out.println(board);
+
+        board.move("A2", "A3");
     }
 }
