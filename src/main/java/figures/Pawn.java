@@ -44,7 +44,8 @@ public class Pawn extends AbstractFigure {
         }
     }
 
-    private List<Position> generatePossibleMovements() {
+    @Override
+    public List<Position> generatePossibleMovements() {
         List<Position> positions = new ArrayList<>();
         if (isFirstMovement()) {
             if (isWhite()) {

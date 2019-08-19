@@ -2,6 +2,8 @@ package main.java.figures;
 
 import main.java.Position;
 
+import java.util.List;
+
 public abstract class AbstractFigure {
     private char color;
     private Position position;
@@ -10,6 +12,8 @@ public abstract class AbstractFigure {
     }
 
     public abstract boolean canMove(AbstractFigure[][] board, Position position);
+
+    public abstract List<Position> generatePossibleMovements();
 
     public int getRow() {
         return this.position.getRow();

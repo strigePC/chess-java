@@ -76,7 +76,8 @@ public class Rook extends AbstractFigure {
         }
     }
 
-    private List<Position> generatePossibleMovements() {
+    @Override
+    public List<Position> generatePossibleMovements() {
         List<Position> positions = new ArrayList<>();
         for (int i = 0; i < 8; i++) positions.add(new Position(getRow(), i));
         for (int i = 0; i < 8; i++) positions.add(new Position(i, getCol()));
