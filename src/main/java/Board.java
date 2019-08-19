@@ -43,6 +43,11 @@ public class Board {
             int dstRow = dstLower.charAt(1) - 49;
             int dstCol = dstLower.charAt(0) - 97;
 
+            if (this.board[srcRow][srcCol] == null) {
+                System.out.println("There is no figure at " + srcLower);
+                return;
+            }
+
             if (this.board[srcRow][srcCol].canMove(this.board, new Position(dstRow, dstCol))) {
                 this.board[dstRow][dstCol] = this.board[srcRow][srcCol];
                 System.out.println(srcLower + " (" + this.board[srcRow][srcCol] + ") to " + dstLower);
