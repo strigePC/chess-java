@@ -31,4 +31,9 @@ public class Position {
 
         return this.col == position.col && this.row == position.row;
     }
+
+    @Override
+    public String toString() {
+        return "" + ((char) (col + 65)) + (row + 1);
+    }
 }

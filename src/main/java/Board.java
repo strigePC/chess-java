@@ -44,7 +44,10 @@ public class Board {
             int dstCol = dstLower.charAt(0) - 97;
 
             if (this.board[srcRow][srcCol].canMove(this.board, new Position(dstRow, dstCol))) {
+                this.board[dstRow][dstCol] = this.board[srcRow][srcCol];
                 System.out.println(srcLower + " (" + this.board[srcRow][srcCol] + ") to " + dstLower);
+                this.board[srcRow][srcCol] = null;
+                this.board[dstRow][dstCol].setPosition(dstRow, dstCol);
             }
         }
 

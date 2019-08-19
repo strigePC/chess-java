@@ -19,6 +19,7 @@ public class Pawn extends AbstractFigure {
     @Override
     public boolean canMove(AbstractFigure[][] board, Position position) {
         List<Position> possibleMovements = generatePossibleMovements();
+
         if (this.getPosition() == position) {
             System.out.println("Figure cannot move to the same position");
             return false;
@@ -26,21 +27,21 @@ public class Pawn extends AbstractFigure {
             if (position.getCol() != getCol()) {
                 if (board[position.getRow()][position.getCol()] == null ||
                         board[position.getRow()][position.getCol()].getColor() == getColor()) {
-                    System.out.println("Pawn cannot move here");
+                    System.out.println("Pawn cannot move here wow");
                     return false;
-                }
+                } else
+                    return true;
             } else {
                 if (board[position.getRow()][position.getCol()] != null) {
                     System.out.println("This position is blocked");
                     return false;
                 }
+                return true;
             }
         } else {
             System.out.println("Pawn cannot move here");
             return false;
         }
-
-        return true;
     }
 
     private List<Position> generatePossibleMovements() {
@@ -70,6 +71,8 @@ public class Pawn extends AbstractFigure {
                 }
             }
         }
+
+        System.out.println(positions);
         return positions;
     }
 
